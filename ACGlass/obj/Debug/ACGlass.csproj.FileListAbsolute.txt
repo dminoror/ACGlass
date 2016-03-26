@@ -45,3 +45,17 @@ C:\Users\DoubleLight\Desktop\研究所\JeffLab\Automatic Composition\ACGlass\ACG
 C:\Users\DoubleLight\Desktop\研究所\JeffLab\Automatic Composition\ACGlass\ACGlass\obj\Debug\ACGlass.g.resources
 C:\Users\DoubleLight\Desktop\研究所\JeffLab\Automatic Composition\ACGlass\ACGlass\obj\Debug\ACGlass.Properties.Resources.resources
 C:\Users\DoubleLight\Desktop\研究所\JeffLab\Automatic Composition\ACGlass\ACGlass\obj\Debug\ACGlass.csproj.GenerateResource.Cache
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\bin\Debug\ACGlass.exe.config
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\obj\Debug\ACGlass.exe
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\obj\Debug\ACGlass.pdb
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\bin\Debug\ACGlass.exe
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\bin\Debug\ACGlass.pdb
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\bin\Debug\Sanford.Multimedia.Midi.pdb
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\obj\Debug\ACGlass.csprojResolveAssemblyReference.cache
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\obj\Debug\MainWindow.baml
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\obj\Debug\MainWindow.g.cs
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\obj\Debug\App.g.cs
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\obj\Debug\ACGlass_MarkupCompile.cache
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\obj\Debug\ACGlass.g.resources
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\obj\Debug\ACGlass.Properties.Resources.resources
+C:\Users\DoubleLight\Desktop\研究所\Automatic Composition\ACGlass\ACGlass\obj\Debug\ACGlass.csproj.GenerateResource.Cache

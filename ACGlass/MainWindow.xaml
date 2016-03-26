@@ -58,6 +58,7 @@
                                 <ComboBoxItem Content="Metamor1"/>
                                 <ComboBoxItem Content="Metamor2"/>
                                 <ComboBoxItem Content="Etude No.2"/>
+                                <ComboBoxItem Content="Etude No.3 - 1"/>
                             </ComboBox>
                         </Border>
                         <Border BorderBrush="Black" BorderThickness="0,0,0,2">
