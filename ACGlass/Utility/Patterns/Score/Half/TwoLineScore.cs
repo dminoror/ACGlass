@@ -1,6 +1,5 @@
 ﻿using ACGlass.Classes;
 using ACGlass.Classes.Patterns;
-using ACGlass.Classes.Patterns.Notes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +63,6 @@ namespace ACGlass.Utility.Patterns.Score
                 loudness = new byte[] { loudness1, loudness2 },
                 orders = new bool?[] { order1, order2 },
                 tune = tune,
-                chords = new Chord[][] { chords1, chords2 },
                 BPM = BPM
             };
             return pattern;
@@ -76,7 +74,17 @@ namespace ACGlass.Utility.Patterns.Score
                 order = BasicUtility.rander.Next(2);
             else
                 order = setOrder == true ? 1 : 0;
-            List<BaseNote> notes = TwoLineNotes.generate(4, order, chords, register, loudness);
+            List<BaseNote> notes = new List<BaseNote>();
+            int index1 = order, index2 = 1 - order;
+            for (int section = 0; section < 4; section++)
+            {
+                Chord chord = chords[section];
+                for (int loop = 0; loop < 4; loop++)
+                {
+                    notes.Add(new Note(12, (byte)(ACCore.pitchFromMajorDegree(chord.tune, chord.notes[index1]) + register), loudness));
+                    notes.Add(new Note(12, (byte)(ACCore.pitchFromMajorDegree(chord.tune, chord.notes[index2]) + register), loudness));
+                }
+            }
             return notes;
         }
         public override int minimumDuring

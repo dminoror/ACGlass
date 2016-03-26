@@ -1,7 +1,5 @@
 ﻿using ACGlass.Classes;
 using ACGlass.Classes.Patterns;
-using ACGlass.Classes.Patterns.Chords;
-using ACGlass.Classes.Patterns.Notes;
 using Sanford.Multimedia.Midi;
 using System;
 using System.Collections.Generic;

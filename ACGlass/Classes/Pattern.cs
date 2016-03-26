@@ -15,7 +15,6 @@ namespace ACGlass.Classes.Patterns
         public byte[] loudness;
         public bool?[] orders;
         public int tune;
-        public Chord[][] chords;
         public int BPM;
         public object tag;
     }

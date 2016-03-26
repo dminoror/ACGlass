@@ -9,7 +9,6 @@ namespace ACGlass.Classes
     public class Chord
     {
         public int[] notes;
-        public int[] offset;
         public int turn;
         public int degree;
         public int tune;

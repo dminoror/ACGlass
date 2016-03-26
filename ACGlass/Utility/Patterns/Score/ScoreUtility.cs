@@ -1,6 +1,4 @@
 ﻿using ACGlass.Classes.Patterns;
-using ACGlass.Classes.Patterns.Chords;
-using ACGlass.Classes.Patterns.Notes;
 using ACGlass.Utility;
 using System;
 using System.Collections.Generic;
@@ -49,9 +47,12 @@ namespace ACGlass.Classes
         public virtual List<BaseNote>[] generateScore(Pattern[] patterns, int index)
         {
             Pattern pattern = patterns[index];
+            TSDChordPattern tsd = new TSDChordPattern(patterns[index].Valence, patterns[index].Arousal);
+            Chord[] chords1 = TSDChord.generate(patterns[index].tune, tsd);
+            Chord[] chords2 = TSDChord.generate(patterns[index].tune, tsd);
             List<BaseNote>[] score = new List<BaseNote>[] { 
-                pattern.patterns[0].generateNotes(pattern.Valence, pattern.Arousal, pattern.chords[0], pattern.registers[0], pattern.loudness[0], pattern.orders[0]), 
-                pattern.patterns[1].generateNotes(pattern.Valence, pattern.Arousal, pattern.chords[1], pattern.registers[1], pattern.loudness[1], pattern.orders[1]) };
+                pattern.patterns[0].generateNotes(pattern.Valence, pattern.Arousal, chords1, pattern.registers[0], pattern.loudness[0], pattern.orders[0]), 
+                pattern.patterns[1].generateNotes(pattern.Valence, pattern.Arousal, chords2, pattern.registers[1], pattern.loudness[1], pattern.orders[1]) };
             List<BaseNote> hand1 = score[0];
             if (index != patterns.Length - 1 && pattern.BPM != patterns[index + 1].BPM)
             {

@@ -1,7 +1,5 @@
 ﻿using ACGlass.Classes;
 using ACGlass.Classes.Patterns;
-using ACGlass.Classes.Patterns.Chords;
-using ACGlass.Classes.Patterns.Notes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,9 +47,6 @@ namespace ACGlass.Utility.Patterns.Score
                 order1 = BasicUtility.throwCoin;
                 order2 = order1 == false;
             }
-
-            //BaseNote[] hand1 = generateNotes(V, A, chords1, registers[0], loudness1, order1);
-            //BaseNote[] hand2 = ptPair.generateNotes(V, A, chords2, registers[1], loudness2, order2);
             int BPM = ScoreUtility.BPMFromDurings(V, A, minimumDuring, ptPair.minimumDuring);
 
             Pattern pattern = new Pattern()
@@ -63,7 +58,6 @@ namespace ACGlass.Utility.Patterns.Score
                 loudness = new byte[] { loudness1, loudness2 },
                 orders = new bool?[] { order1, order2 },
                 tune = tune,
-                chords = new Chord[][] { chords1, chords2 },
                 BPM = BPM
             };
             return pattern;
@@ -76,10 +70,65 @@ namespace ACGlass.Utility.Patterns.Score
             else
                 order = setOrder == true ? 1 : 0;
             int stable = 0;
-            FourChord[] fourChords = FourChords.generate(chords[0].tune, chords, stable, FourChords.findIsSeven(V, A));
-            List<BaseNote> notes = FourLineNotes.generate(4, order, fourChords, register, loudness);
+            FourChord[] fourChords = generateChords(chords[0].tune, chords, stable, findIsSeven(V, A));
+            List<BaseNote> notes = new List<BaseNote>();
+            if (order == 0)
+            {
+                for (int section = 0; section < 4; section++)
+                {
+                    FourChord chord = fourChords[section];
+                    for (int loop = 0; loop < 4; loop++)
+                    {
+                        for (int n = 0; n < 4; n++)
+                            notes.Add(new Note(6, (byte)(ACCore.pitchFromMajorDegree(chord.tune, chord.notes[n]) + register), loudness));
+                    }
+                }
+            }
+            else
+            {
+                for (int section = 0; section < 4; section++)
+                {
+                    FourChord chord = fourChords[section];
+                    for (int loop = 0; loop < 4; loop++)
+                    {
+                        for (int n = 3; n >= 0; n--)
+                            notes.Add(new Note(6, (byte)(ACCore.pitchFromMajorDegree(chord.tune, chord.notes[n]) + register), loudness));
+                    }
+                }
+            }
+            
             return notes;
         }
+
+        public FourChord[] generateChords(int tune, Chord[] sourceChords, int stable, bool isSeven)
+        {
+            FourChord[] chords = new FourChord[sourceChords.Length];
+            if (isSeven)
+            {
+                for (int i = 0; i < chords.Length; i++)
+                {
+                    Chord chord = sourceChords[i];
+                    chords[i] = new FourChord(chord.notes[0], chord.notes[2] + 3, tune, 0, stable);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < chords.Length; i++)
+                {
+                    Chord chord = sourceChords[i];
+                    chords[i] = new FourChord(chord.notes[0], chord.notes[2] + 2, tune, 0, stable);
+                }
+            }
+            return chords;
+        }
+
+        public bool findIsSeven(double V, double A)
+        {
+            double[][] em = new double[2][] { new double[] { 0.3, 0.5 }, new double[] { 0.7, 0.5 } };
+            int index = BasicUtility.powerSelect(em, new double[] { V, A });
+            return index == 1;
+        }
+
         public override int minimumDuring
         {
             get { return 6; }

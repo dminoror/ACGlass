@@ -1,6 +1,5 @@
 ﻿using ACGlass.Classes;
 using ACGlass.Classes.Patterns;
-using ACGlass.Classes.Patterns.Chords;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +20,6 @@ namespace ACGlass.Utility.Patterns.Score.Full
         public override Pattern generatePattern(double V, double A, double[] distance)
         {
             int tune = 0;
-
-            FourChord[] fourChords = FourChords.generateEtude2(tune);
 
             int[] registers = new int[] { 3 * 12, 5 * 12 };
             byte loudness1 = 127;
@@ -50,7 +47,7 @@ namespace ACGlass.Utility.Patterns.Score.Full
             {
                 status = (int)pattern.tag;
             }
-            FourChord[] fourChords = FourChords.generateEtude2(pattern.tune);
+            FourChord[] fourChords = generateChords(pattern.tune);
             List<BaseNote> hand1 = new List<BaseNote>();
             switch (status)
             {
@@ -107,6 +104,19 @@ namespace ACGlass.Utility.Patterns.Score.Full
             hand2.Insert(0, new TempoChanger(pattern.BPM));
             return score;
         }
+
+        public FourChord[] generateChords(int tune)
+        {
+            int offset = BasicUtility.rander.Next(7);
+            FourChord[] fourChords = new FourChord[5];
+            fourChords[0] = new FourChord(-1 + offset, 4 + offset, tune, 0, 0);
+            fourChords[1] = new FourChord(-2 + offset, 4 + offset, tune, 0, 0);
+            fourChords[2] = new FourChord(3 + offset, 9 + offset, tune + 3, -1, 0);
+            fourChords[3] = new FourChord(-3 + offset, 4 + offset, tune, 0, 0);
+            fourChords[4] = new FourChord(-5 + offset, 2 + offset, tune, 0, 0);
+            return fourChords;
+        }
+
         public override int minimumDuring
         {
             get { return 12; }
