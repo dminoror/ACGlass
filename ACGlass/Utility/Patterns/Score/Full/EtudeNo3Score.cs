@@ -77,11 +77,13 @@ namespace ACGlass.Utility.Patterns.Score.Full
             List<BaseNote>[] score = new List<BaseNote>[] { hand1, hand2 };
             if (index != patterns.Length - 1 && pattern.BPM != patterns[index + 1].BPM)
             {
-                double distance = (pattern.BPM - patterns[index + 1].BPM) / 5.0;
-                hand2.Insert(hand2.Count - 15, new TempoChanger((int)(pattern.BPM - distance)));
-                hand2.Insert(hand2.Count - 11, new TempoChanger((int)(pattern.BPM - distance * 2)));
-                hand2.Insert(hand2.Count - 8, new TempoChanger((int)(pattern.BPM - distance * 3)));
-                hand2.Insert(hand2.Count - 4, new TempoChanger((int)(pattern.BPM - distance * 4)));
+                double distance = (pattern.BPM - patterns[index + 1].BPM) / 7.0;
+                hand2.Insert(hand2.Count - 6, new TempoChanger((int)(pattern.BPM - distance)));
+                hand2.Insert(hand2.Count - 5, new TempoChanger((int)(pattern.BPM - distance * 2)));
+                hand2.Insert(hand2.Count - 4, new TempoChanger((int)(pattern.BPM - distance * 3)));
+                hand2.Insert(hand2.Count - 3, new TempoChanger((int)(pattern.BPM - distance * 4)));
+                hand2.Insert(hand2.Count - 2, new TempoChanger((int)(pattern.BPM - distance * 5)));
+                hand2.Insert(hand2.Count - 1, new TempoChanger((int)(pattern.BPM - distance * 6)));
             }
             hand2.Insert(0, new TempoChanger(pattern.BPM));
             return score;
