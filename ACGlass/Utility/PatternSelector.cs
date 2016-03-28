@@ -24,6 +24,7 @@ namespace ACGlass.Utility
         public static EtudeNo2Score ptEtudeNo2 = new EtudeNo2Score();
         public static EtudeNo3Score ptEtudeNo3 = new EtudeNo3Score();
         public static EtudeNo4Score ptEtudeNo4 = new EtudeNo4Score();
+        public static EtudeNo5Score ptEtudeNo5 = new EtudeNo5Score();
 
         public static ScoreUtility[] mainPatterns = new ScoreUtility[] { 
             ptTowLine, 
@@ -35,7 +36,8 @@ namespace ACGlass.Utility
             ptMetamor2, 
             ptEtudeNo2,
             ptEtudeNo3,
-            ptEtudeNo4 };
+            ptEtudeNo4,
+            ptEtudeNo5 };
         public static ScoreUtility[] pairPatterns = new ScoreUtility[] {
             ptTowLine,
             ptThreeLine,
