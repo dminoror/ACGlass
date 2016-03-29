@@ -63,6 +63,7 @@
                                 <ComboBoxItem Content="Etude No.5"/>
                                 <ComboBoxItem Content="Etude No.6 - 1"/>
                                 <ComboBoxItem Content="Etude No.6 - 2"/>
+                                <ComboBoxItem Content="Etude No.8"/>
                             </ComboBox>
                         </Border>
                         <Border BorderBrush="Black" BorderThickness="0,0,0,2">

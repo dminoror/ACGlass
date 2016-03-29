@@ -78,6 +78,7 @@
     <Compile Include="Utility\Patterns\Score\Full\EtudeNo5Score.cs" />
     <Compile Include="Utility\Patterns\Score\Full\EtudeNo6-1Score.cs" />
     <Compile Include="Utility\Patterns\Score\Full\EtudeNo6-2Score.cs" />
+    <Compile Include="Utility\Patterns\Score\Full\EtudeNo8Score.cs" />
     <Compile Include="Utility\Patterns\Score\Full\GlassworksScore.cs" />
     <Compile Include="Utility\Patterns\Score\Full\Metamor1Score.cs" />
     <Compile Include="Utility\Patterns\Score\Full\Metamor2Score.cs" />
