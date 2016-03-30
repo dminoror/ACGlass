@@ -11,36 +11,51 @@ namespace ACGlass.Utility
 {
     public static class ACCore
     {
-        public static byte[][] stepMajor = 
-            new byte[12][] { new byte[7] { 0, 2, 4, 5, 7, 9, 11 },
-                             new byte[7] { 1, 3, 5, 6, 8, 10, 12 },
-                             new byte[7] { 2, 4, 6, 7, 9, 11, 13 },
-                             new byte[7] { 3, 5, 7, 8, 10, 12, 14 },
-                             new byte[7] { 4, 6, 8, 9, 11, 13, 15 },
-                             new byte[7] { 5, 7, 9, 10, 12, 14, 16 },
-                             new byte[7] { 6, 8, 10, 11, 13, 15, 17 },
-                             new byte[7] { 7, 9, 11, 12, 14, 16, 18 },
-                             new byte[7] { 8, 10, 12, 13, 15, 17, 19 },
-                             new byte[7] { 9, 11, 13, 14, 16, 18, 20 },
-                             new byte[7] { 10, 12, 14, 15, 17, 19, 21 },
-                             new byte[7] { 11, 13, 15, 16, 18, 20, 22 } }; //{ 0, 2, 4, 5, 7, 9, 11 };
-        public static byte[][] stepMinor =
-            new byte[12][] { new byte[7] { 0, 2, 4, 5, 8, 9, 11 },
-                             new byte[7] { 1, 3, 5, 6, 9, 10, 12 },
-                             new byte[7] { 2, 4, 6, 7, 10, 11, 13 },
-                             new byte[7] { 3, 5, 7, 8, 11, 12, 14 },
-                             new byte[7] { 4, 6, 8, 9, 12, 13, 15 },
-                             new byte[7] { 5, 7, 9, 10, 13, 14, 16 },
-                             new byte[7] { 6, 8, 10, 11, 14, 15, 17 },
-                             new byte[7] { 7, 9, 11, 12, 15, 16, 18 },
-                             new byte[7] { 8, 10, 12, 13, 16, 17, 19 },
-                             new byte[7] { 9, 11, 13, 14, 17, 18, 20 },
-                             new byte[7] { 10, 12, 14, 15, 18, 19, 21 },
-                             new byte[7] { 11, 13, 15, 16, 19, 20, 22 } };
-            
-            //{ 0, 2, 4, 5, 8, 9, 11 };
-
-        //public static Random rander = new Random();
+        static int[][] stepMajor = null; //{ 0, 2, 4, 5, 7, 9, 11 };
+        static int[][] stepMinor = null;
+        static int[][] stepMinorHarmony = null;
+        public static int[][] Major
+        {
+            get
+            {
+                if (stepMajor == null)
+                {
+                    stepMajor = new int[12][];
+                    int[] step = new int[7] { 0, 2, 4, 5, 7, 9, 11 };
+                    for (int i = 0; i < 12; i++)
+                        stepMajor[i] = new int[7] { step[0] + i, step[1] + i, step[2] + i, step[3] + i, step[4] + i, step[5] + i, step[6] + i };
+                }
+                return stepMajor;
+            }
+        }
+        public static int[][] Minor
+        {
+            get
+            {
+                if (stepMinor == null)
+                {
+                    stepMinor = new int[12][];
+                    int[] step = new int[7] { -3, -1, 0, 2, 4, 5, 7 };
+                    for (int i = 0; i < 12; i++)
+                        stepMinor[i] = new int[7] { step[0] + i, step[1] + i, step[2] + i, step[3] + i, step[4] + i, step[5] + i, step[6] + i };
+                }
+                return stepMinor;
+            }
+        }
+        public static int[][] MinorHarmony
+        {
+            get
+            {
+                if (stepMinorHarmony == null)
+                {
+                    stepMinorHarmony = new int[12][];
+                    int[] step = new int[7] { -3, -1, 0, 2, 4, 5, 8 };
+                    for (int i = 0; i < 12; i++)
+                        stepMinorHarmony[i] = new int[7] { step[0] + i, step[1] + i, step[2] + i, step[3] + i, step[4] + i, step[5] + i, step[6] + i };
+                }
+                return stepMinorHarmony;
+            }
+        }
 
         public static Pattern generateScore(double V, double A, ScoreUtility PU)
         {
@@ -246,15 +261,20 @@ namespace ACGlass.Utility
             else
                 return new int[] { degree % 7, degree / 7 };
         }
-        public static int pitchFromMajorDegree(int tune, int degree)
+        public static int pitchFromMajor(int tune, int degree)
         {
             int[] pitchData = pitchFromDegree(degree);
-            return stepMajor[tune][pitchData[0]] + pitchData[1] * 12;
+            return Major[tune][pitchData[0]] + pitchData[1] * 12;
         }
-        public static int pitchFromMinorDegree(int tune, int degree)
+        public static int pitchFromMinor(int tune, int degree)
         {
             int[] pitchData = pitchFromDegree(degree);
-            return stepMinor[tune][pitchData[0]] + pitchData[1] * 12;
+            return Minor[tune][pitchData[0]] + pitchData[1] * 12;
+        }
+        public static int pitchFromMinorHarmony(int tune, int degree)
+        {
+            int[] pitchData = pitchFromDegree(degree);
+            return MinorHarmony[tune][pitchData[0]] + pitchData[1] * 12;
         }
     }
 }

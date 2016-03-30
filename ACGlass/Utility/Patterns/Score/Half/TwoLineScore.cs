@@ -81,8 +81,8 @@ namespace ACGlass.Utility.Patterns.Score
                 Chord chord = chords[section];
                 for (int loop = 0; loop < 4; loop++)
                 {
-                    notes.Add(new Note(12, (byte)(ACCore.pitchFromMajorDegree(chord.tune, chord.notes[index1]) + register), loudness));
-                    notes.Add(new Note(12, (byte)(ACCore.pitchFromMajorDegree(chord.tune, chord.notes[index2]) + register), loudness));
+                    notes.Add(new Note(12, (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[index1]) + register), loudness));
+                    notes.Add(new Note(12, (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[index2]) + register), loudness));
                 }
             }
             return notes;

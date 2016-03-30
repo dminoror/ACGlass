@@ -71,45 +71,45 @@ namespace ACGlass.Utility.Patterns.Score.Full
         {
             notes.Add(new RestNote(36));
             notes.Add(new Note(60, new byte[] { 
-                (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1]) + pattern.registers[0]),
-                (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1]) + pattern.registers[0] + 12) }, pattern.loudness[0]));
+                (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1]) + pattern.registers[0]),
+                (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1]) + pattern.registers[0] + 12) }, pattern.loudness[0]));
             notes.Add(new RestNote(36));
             if (!step)
             {
                 notes.Add(new Note(60, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 2) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 2) + pattern.registers[0] + 12) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 2) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 2) + pattern.registers[0] + 12) }, pattern.loudness[0]));
                 notes.Add(new RestNote(36));
                 notes.Add(new Note(60, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 3) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 3) + pattern.registers[0] + 12) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 3) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 3) + pattern.registers[0] + 12) }, pattern.loudness[0]));
                 notes.Add(new RestNote(36));
                 notes.Add(new Note(36, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 4) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 4) + pattern.registers[0] + 12) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 4) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 4) + pattern.registers[0] + 12) }, pattern.loudness[0]));
                 notes.Add(new Note(24, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 5) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 5) + pattern.registers[0] + 12) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 5) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 5) + pattern.registers[0] + 12) }, pattern.loudness[0]));
             }
             else
             {
                 notes.Add(new Note(36, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 2) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 2) + pattern.registers[0] + 12) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 2) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 2) + pattern.registers[0] + 12) }, pattern.loudness[0]));
                 notes.Add(new Note(24, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 3) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 3) + pattern.registers[0] + 12) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 3) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 3) + pattern.registers[0] + 12) }, pattern.loudness[0]));
                 notes.Add(new RestNote(36));
                 notes.Add(new Note(60, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 4) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 4) + pattern.registers[0] + 12) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 4) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 4) + pattern.registers[0] + 12) }, pattern.loudness[0]));
                 notes.Add(new RestNote(36));
                 notes.Add(new Note(36, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 6) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 6) + pattern.registers[0] + 12) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 6) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 6) + pattern.registers[0] + 12) }, pattern.loudness[0]));
                 notes.Add(new Note(24, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 5) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1] + 5) + pattern.registers[0] + 12) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 5) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1] + 5) + pattern.registers[0] + 12) }, pattern.loudness[0]));
             }
             
         }
@@ -119,41 +119,41 @@ namespace ACGlass.Utility.Patterns.Score.Full
             {
                 Chord section2 = new Chord(chord.degree - 3, chord.turn + 1, chord.tune);
                 notes.Add(new Note(96, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[0]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[2]) + pattern.registers[0])}, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[0]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[2]) + pattern.registers[0])}, pattern.loudness[0]));
                 notes.Add(new Note(72, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, section2.notes[1]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, section2.notes[2]) + pattern.registers[0])}, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, section2.notes[1]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, section2.notes[2]) + pattern.registers[0])}, pattern.loudness[0]));
                 notes.Add(new Note(24, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, section2.notes[0]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, section2.notes[1]) + pattern.registers[0])}, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, section2.notes[0]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, section2.notes[1]) + pattern.registers[0])}, pattern.loudness[0]));
                 notes.Add(new Note(96, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[0]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[0] + 3) + pattern.registers[0])}, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[0]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[0] + 3) + pattern.registers[0])}, pattern.loudness[0]));
                 notes.Add(new Note(96, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[0]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[0] + 3) + pattern.registers[0])}, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[0]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[0] + 3) + pattern.registers[0])}, pattern.loudness[0]));
             }
             else
             {
                 Chord section2 = new Chord(chord.degree - 1, chord.turn + 1, chord.tune);
                 notes.Add(new Note(96, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[0]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[2]) + pattern.registers[0]) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[0]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[2]) + pattern.registers[0]) }, pattern.loudness[0]));
                 notes.Add(new Note(36, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, section2.notes[0]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, section2.notes[1]) + pattern.registers[0]) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, section2.notes[0]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, section2.notes[1]) + pattern.registers[0]) }, pattern.loudness[0]));
                 notes.Add(new Note(36, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, section2.notes[0]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, section2.notes[1]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, section2.notes[2]) + pattern.registers[0]) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, section2.notes[0]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, section2.notes[1]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, section2.notes[2]) + pattern.registers[0]) }, pattern.loudness[0]));
                 notes.Add(new Note(24, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, section2.notes[2] - 7) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, section2.notes[0]) + pattern.registers[0])}, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, section2.notes[2] - 7) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, section2.notes[0]) + pattern.registers[0])}, pattern.loudness[0]));
                 notes.Add(new Note(96, new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[2]) + pattern.registers[0]) }, pattern.loudness[0]));
-                notes.Add(new Note(96, (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[0]) + pattern.registers[0]), pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[2]) + pattern.registers[0]) }, pattern.loudness[0]));
+                notes.Add(new Note(96, (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[0]) + pattern.registers[0]), pattern.loudness[0]));
 
             }
         }
@@ -162,15 +162,15 @@ namespace ACGlass.Utility.Patterns.Score.Full
         {
             byte[][] headNote = new byte[4][];
             headNote[0] = new byte[] { 
-                (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[0]) + pattern.registers[1]), 
-                (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[1]) + pattern.registers[1]) };
+                (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[0]) + pattern.registers[1]), 
+                (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[1]) + pattern.registers[1]) };
             if (Math.Abs(chord.notes[0] - chord.notes[1]) > 2)
                 headNote[1] = new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[0] + 1) + pattern.registers[1]), 
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[0] + 1) + pattern.registers[1]), 
                     headNote[0][1] };
             else
                 headNote[1] = new byte[] { 
-                    (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[0] - 1) + pattern.registers[1]), 
+                    (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[0] - 1) + pattern.registers[1]), 
                     headNote[0][1] };
             headNote[2] = new byte[] { headNote[0][0], headNote[0][1] };
             headNote[3] = new byte[] { (byte)(headNote[0][0] - 1), (byte)(headNote[0][1] - 1) };
@@ -178,9 +178,9 @@ namespace ACGlass.Utility.Patterns.Score.Full
             for (int i = 0; i < 4; i++)
             {
                 notes.Add(new Note(12, headNote[i], pattern.loudness[1]));
-                notes.Add(new Note(12, (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[2]) + pattern.registers[1]), pattern.loudness[1]));
+                notes.Add(new Note(12, (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[2]) + pattern.registers[1]), pattern.loudness[1]));
                 notes.Add(new Note(12, headNote[i][1], pattern.loudness[1]));
-                notes.Add(new Note(60, (byte)(ACCore.pitchFromMajorDegree(pattern.tune, chord.notes[2]) + pattern.registers[1]), pattern.loudness[1]));
+                notes.Add(new Note(60, (byte)(ACCore.pitchFromMajor(pattern.tune, chord.notes[2]) + pattern.registers[1]), pattern.loudness[1]));
             }
         }
 

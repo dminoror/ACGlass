@@ -77,7 +77,7 @@ namespace ACGlass.Utility.Patterns.Score
                 for (int loop = 0; loop < 4; loop++)
                 {
                     for (int note = 0; note < peak.notes.Length; note++)
-                        notes.Add(new Note(4, (byte)(ACCore.pitchFromMajorDegree(chord.tune, peak.notes[note]) + register), loudness)); ;
+                        notes.Add(new Note(4, (byte)(ACCore.pitchFromMajor(chord.tune, peak.notes[note]) + register), loudness)); ;
                 }
             }
             return notes;
@@ -95,7 +95,7 @@ namespace ACGlass.Utility.Patterns.Score
                 for (int loop = 0; loop < loopCount; loop++)
                 {
                     for (int note = 0; note < peak.notes.Length; note++)
-                        score.Add(new Note(noteDuring, (byte)(ACCore.pitchFromMajorDegree(chord.tune, peak.notes[note]) + register), loudness)); ;
+                        score.Add(new Note(noteDuring, (byte)(ACCore.pitchFromMajor(chord.tune, peak.notes[note]) + register), loudness)); ;
                 }
             }
             return score;

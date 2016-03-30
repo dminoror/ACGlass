@@ -24,13 +24,13 @@ namespace ACGlass.Utility.Patterns.Score
                 Chord chord = chords[section];
                 int bass = BasicUtility.throwCoin ? chord.notes[0] : chord.notes[2] - 7;
                 notes.Add(new Note(12,
-                    new byte[] { (byte)(ACCore.pitchFromMajorDegree(chord.tune, bass) + register), 
-                                 (byte)(ACCore.pitchFromMajorDegree(chord.tune, chord.notes[1]) + register) }, loudness));
-                notes.Add(new Note(12, (byte)(ACCore.pitchFromMajorDegree(chord.tune, chord.notes[2]) + register), loudness));
+                    new byte[] { (byte)(ACCore.pitchFromMajor(chord.tune, bass) + register), 
+                                 (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[1]) + register) }, loudness));
+                notes.Add(new Note(12, (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[2]) + register), loudness));
                 for (int i = 0; i < 3; i++)
                 {
-                    notes.Add(new Note(12, (byte)(ACCore.pitchFromMajorDegree(chord.tune, chord.notes[1]) + register), loudness));
-                    notes.Add(new Note(12, (byte)(ACCore.pitchFromMajorDegree(chord.tune, chord.notes[2]) + register), loudness));
+                    notes.Add(new Note(12, (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[1]) + register), loudness));
+                    notes.Add(new Note(12, (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[2]) + register), loudness));
                 }
             }
             return notes;
