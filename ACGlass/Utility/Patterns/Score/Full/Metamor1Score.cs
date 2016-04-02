@@ -15,11 +15,10 @@ namespace ACGlass.Utility.Patterns.Score.Full
             Valence = 0.3;
             Arousal = 0.275;
             Name = "Metamor1";
-            selfId = 6;
         }
-        public override Pattern generatePattern(double V, double A, double[] distance)
+        public override Pattern generatePattern(double V, double A)
         {
-            int tune = 0;
+            int tune = BasicUtility.rander.Next(12);
             int[] registers = new int[2];
             registers[0] = BasicUtility.rander.Next(4, 7) * 12;
             registers[1] = registers[0] - 12;
@@ -43,6 +42,7 @@ namespace ACGlass.Utility.Patterns.Score.Full
         {
             Pattern pattern = patterns[index];
             Chord[] chords = new Chord[4];
+            int mode = findMode(pattern.Valence, pattern.Arousal);
             int degree = BasicUtility.rander.Next(7);
             chords[0] = new Chord(degree, 0, pattern.tune);
             chords[1] = new Chord(chords[0].degree, 0, pattern.tune);
@@ -58,38 +58,38 @@ namespace ACGlass.Utility.Patterns.Score.Full
             {
                 Chord chord = chords[section];
                 hand1.Add(new Note(24, new byte[] { 
-                    (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[0]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[1]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[2]) + pattern.registers[0]) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[0]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[1]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[2]) + pattern.registers[0]) }, pattern.loudness[0]));
                 hand1.Add(new Note(72, new byte[] { 
-                    (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[0]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[1]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[2]) + pattern.registers[0]) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[0]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[1]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[2]) + pattern.registers[0]) }, pattern.loudness[0]));
                 hand2.Add(new Note(24, new byte[] { 
-                    (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[0]) + pattern.registers[1]),
-                    (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[1]) + pattern.registers[1]),
-                    (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[2]) + pattern.registers[1]) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[0]) + pattern.registers[1]),
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[1]) + pattern.registers[1]),
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[2]) + pattern.registers[1]) }, pattern.loudness[0]));
                 hand2.Add(new Note(72, new byte[] { 
-                    (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[0]) + pattern.registers[1]),
-                    (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[1]) + pattern.registers[1]),
-                    (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[2]) + pattern.registers[1]) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[0]) + pattern.registers[1]),
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[1]) + pattern.registers[1]),
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[2]) + pattern.registers[1]) }, pattern.loudness[0]));
             }
             hand1.Add(new Note(24, new byte[] { 
-                    (byte)(ACCore.pitchFromMajor(pattern.tune, chords[3].notes[0]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajor(pattern.tune, chords[3].notes[1]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajor(pattern.tune, chords[3].notes[2]) + pattern.registers[0] - 1) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMode(mode, pattern.tune, chords[3].notes[0]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMode(mode, pattern.tune, chords[3].notes[1]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMode(mode, pattern.tune, chords[3].notes[2]) + pattern.registers[0] - 1) }, pattern.loudness[0]));
             hand1.Add(new Note(72, new byte[] { 
-                    (byte)(ACCore.pitchFromMajor(pattern.tune, chords[3].notes[0]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajor(pattern.tune, chords[3].notes[1]) + pattern.registers[0]),
-                    (byte)(ACCore.pitchFromMajor(pattern.tune, chords[3].notes[2]) + pattern.registers[0] - 1) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMode(mode, pattern.tune, chords[3].notes[0]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMode(mode, pattern.tune, chords[3].notes[1]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMode(mode, pattern.tune, chords[3].notes[2]) + pattern.registers[0] - 1) }, pattern.loudness[0]));
             hand2.Add(new Note(24, new byte[] { 
-                    (byte)(ACCore.pitchFromMajor(pattern.tune, chords[3].notes[0]) + pattern.registers[1]),
-                    (byte)(ACCore.pitchFromMajor(pattern.tune, chords[3].notes[1]) + pattern.registers[1]),
-                    (byte)(ACCore.pitchFromMajor(pattern.tune, chords[3].notes[2]) + pattern.registers[1] - 1) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMode(mode, pattern.tune, chords[3].notes[0]) + pattern.registers[1]),
+                    (byte)(ACCore.pitchFromMode(mode, pattern.tune, chords[3].notes[1]) + pattern.registers[1]),
+                    (byte)(ACCore.pitchFromMode(mode, pattern.tune, chords[3].notes[2]) + pattern.registers[1] - 1) }, pattern.loudness[0]));
             hand2.Add(new Note(72, new byte[] { 
-                    (byte)(ACCore.pitchFromMajor(pattern.tune, chords[3].notes[0]) + pattern.registers[1]),
-                    (byte)(ACCore.pitchFromMajor(pattern.tune, chords[3].notes[1]) + pattern.registers[1]),
-                    (byte)(ACCore.pitchFromMajor(pattern.tune, chords[3].notes[2]) + pattern.registers[1] - 1) }, pattern.loudness[0]));
+                    (byte)(ACCore.pitchFromMode(mode, pattern.tune, chords[3].notes[0]) + pattern.registers[1]),
+                    (byte)(ACCore.pitchFromMode(mode, pattern.tune, chords[3].notes[1]) + pattern.registers[1]),
+                    (byte)(ACCore.pitchFromMode(mode, pattern.tune, chords[3].notes[2]) + pattern.registers[1] - 1) }, pattern.loudness[0]));
             List<BaseNote>[] score = new List<BaseNote>[] { hand1, hand2 };
             if (index != patterns.Length - 1 && pattern.BPM != patterns[index + 1].BPM)
             {

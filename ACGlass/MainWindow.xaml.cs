@@ -48,11 +48,9 @@ namespace ACGlass
 
             outDevice = new OutputDevice(0);
             #endregion
-
-
+            
             score = new Score(sequence);
         }
-
 
 
         private void btnClearPath_Click(object sender, RoutedEventArgs e)
@@ -87,7 +85,8 @@ namespace ACGlass
                 {
                     ScoreUtility prevPT = patterns[i - 1].patterns[0];
                     patterns[i] = ACCore.generateScore(valence, arousal, prevPT);
-                    patterns[i].BPM = patterns[i - 1].BPM;
+                    //patterns[i].BPM = patterns[i - 1].BPM;
+                    patterns[i].tune = patterns[i - 1].tune;
                 }
                 else
                 {

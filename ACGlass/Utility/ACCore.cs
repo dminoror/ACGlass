@@ -12,49 +12,21 @@ namespace ACGlass.Utility
     public static class ACCore
     {
         static int[][] stepMajor = null; //{ 0, 2, 4, 5, 7, 9, 11 };
+        //static int[][] stepMinor = null;
         static int[][] stepMinor = null;
-        static int[][] stepMinorHarmony = null;
-        public static int[][] Major
+        static int[][][] stepMode;
+
+        static ACCore()
         {
-            get
-            {
-                if (stepMajor == null)
-                {
-                    stepMajor = new int[12][];
-                    int[] step = new int[7] { 0, 2, 4, 5, 7, 9, 11 };
-                    for (int i = 0; i < 12; i++)
-                        stepMajor[i] = new int[7] { step[0] + i, step[1] + i, step[2] + i, step[3] + i, step[4] + i, step[5] + i, step[6] + i };
-                }
-                return stepMajor;
-            }
-        }
-        public static int[][] Minor
-        {
-            get
-            {
-                if (stepMinor == null)
-                {
-                    stepMinor = new int[12][];
-                    int[] step = new int[7] { -3, -1, 0, 2, 4, 5, 7 };
-                    for (int i = 0; i < 12; i++)
-                        stepMinor[i] = new int[7] { step[0] + i, step[1] + i, step[2] + i, step[3] + i, step[4] + i, step[5] + i, step[6] + i };
-                }
-                return stepMinor;
-            }
-        }
-        public static int[][] MinorHarmony
-        {
-            get
-            {
-                if (stepMinorHarmony == null)
-                {
-                    stepMinorHarmony = new int[12][];
-                    int[] step = new int[7] { -3, -1, 0, 2, 4, 5, 8 };
-                    for (int i = 0; i < 12; i++)
-                        stepMinorHarmony[i] = new int[7] { step[0] + i, step[1] + i, step[2] + i, step[3] + i, step[4] + i, step[5] + i, step[6] + i };
-                }
-                return stepMinorHarmony;
-            }
+            stepMajor = new int[12][];
+            int[] step = new int[7] { 0, 2, 4, 5, 7, 9, 11 };
+            for (int i = 0; i < 12; i++)
+                stepMajor[i] = new int[7] { step[0] + i, step[1] + i, step[2] + i, step[3] + i, step[4] + i, step[5] + i, step[6] + i };
+            stepMinor = new int[12][];
+            step = new int[7] { -3, -1, 0, 2, 4, 5, 8 };
+            for (int i = 0; i < 12; i++)
+                stepMinor[i] = new int[7] { step[0] + i, step[1] + i, step[2] + i, step[3] + i, step[4] + i, step[5] + i, step[6] + i };
+            stepMode = new int[2][][] { stepMajor, stepMinor };
         }
 
         public static Pattern generateScore(double V, double A, ScoreUtility PU)
@@ -261,20 +233,21 @@ namespace ACGlass.Utility
             else
                 return new int[] { degree % 7, degree / 7 };
         }
+        public static int pitchFromMode(int mode, int tune, int degree)
+        {
+            int[] pitchData = pitchFromDegree(degree);
+            return stepMode[mode][tune][pitchData[0]] + pitchData[1] * 12;
+        }
+        /*
         public static int pitchFromMajor(int tune, int degree)
         {
             int[] pitchData = pitchFromDegree(degree);
             return Major[tune][pitchData[0]] + pitchData[1] * 12;
         }
-        public static int pitchFromMinor(int tune, int degree)
-        {
-            int[] pitchData = pitchFromDegree(degree);
-            return Minor[tune][pitchData[0]] + pitchData[1] * 12;
-        }
         public static int pitchFromMinorHarmony(int tune, int degree)
         {
             int[] pitchData = pitchFromDegree(degree);
-            return MinorHarmony[tune][pitchData[0]] + pitchData[1] * 12;
-        }
+            return Minor[tune][pitchData[0]] + pitchData[1] * 12;
+        }*/
     }
 }

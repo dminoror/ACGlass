@@ -14,8 +14,28 @@ namespace ACGlass.Classes.Patterns
         public int[] registers;
         public byte[] loudness;
         public bool?[] orders;
-        public int tune;
+        int Tune;
+        public int mode;
         public int BPM;
         public object tag;
+        public Pattern()
+        {
+            mode = -1;
+        }
+        public int tune
+        {
+            set
+            {
+                if (Tune > 11)
+                {
+                    throw new Exception("why over 11");
+                }
+                Tune = value;
+            }
+            get
+            {
+                return Tune;
+            }
+        }
     }
 }

@@ -15,24 +15,26 @@ namespace ACGlass.Utility.Patterns.Score.Full
             Valence = 0.525;
             Arousal = 0.3;
             Name = "Glassworks";
-            selfId = 5;
         }
-        public override Pattern generatePattern(double V, double A, double[] distance)
+        public override Pattern generatePattern(double V, double A)
         {
-            int tune = 0;
-            int register1 = BasicUtility.Cfinder(new int[] { 6, 7 }, 1)[0] * 12;
-            int register2 = register1 - 12;
+            int tune = BasicUtility.rander.Next(12);
+            int[] registers = BasicUtility.Cfinder(new int[] { 4, 5, 6 }, 2);
+            registers[0] *= 12;
+            registers[1] *= 12;
             byte loudness = 127;
             int BPM = ScoreUtility.BPMFromDuring(V, A, minimumDuring);
+            int mode = findMode(V, A);
 
             Pattern pattern = new Pattern()
             {
                 Valence = V,
                 Arousal = A,
                 patterns = new ScoreUtility[] { this },
-                registers = new int[] { register1, register2 },
+                registers = registers,
                 loudness = new byte[] { loudness },
                 tune = tune,
+                mode = mode,
                 BPM = BPM
             };
             return pattern;
@@ -43,12 +45,12 @@ namespace ACGlass.Utility.Patterns.Score.Full
             bool isEnd = true;
             Chord[] chords = generateChords(pattern.tune, isEnd);
             int stable = BasicUtility.rander.Next(4);
-            List<BaseNote> hand1 = generateNotes(chords, pattern.registers[0], pattern.loudness[0], stable);
+            List<BaseNote> hand1 = generateNotes(chords, pattern.mode, pattern.registers[0], pattern.loudness[0], stable);
             int turnCount = BasicUtility.rander.Next(3);
             foreach (Chord chord in chords)
                 for (int i = 0; i < turnCount; i++)
                     chord.turnDown();
-            List<BaseNote> hand2 = PatternSelector.ptHeadTwo.generateNotes(pattern.Valence, pattern.Arousal, chords, pattern.registers[1], pattern.loudness[0], null);
+            List<BaseNote> hand2 = PatternSelector.ptHeadTwo.generateNotes(pattern, chords, pattern.registers[1], pattern.loudness[0], null);
             List<BaseNote>[] score = new List<BaseNote>[] { hand1, hand2 };
             if (index != patterns.Length - 1 && pattern.BPM != patterns[index + 1].BPM)
             {
@@ -61,7 +63,7 @@ namespace ACGlass.Utility.Patterns.Score.Full
             return score;
         }
 
-        public List<BaseNote> generateNotes(Chord[] chords, int register, byte loudness, int stable)
+        public List<BaseNote> generateNotes(Chord[] chords, int mode, int register, byte loudness, int stable)
         {
             int[] noteIndex1 = null, noteIndex2 = null;
             int index1 = BasicUtility.rander.Next(2);
@@ -96,8 +98,8 @@ namespace ACGlass.Utility.Patterns.Score.Full
                 Chord chord = chords[section];
                 for (int i = 0; i < 6; i++)
                 {
-                    score.Add(new Note(8, (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[noteIndex1[section]]) + register), loudness));
-                    score.Add(new Note(8, (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[noteIndex2[section]]) + register), loudness));
+                    score.Add(new Note(8, (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[noteIndex1[section]]) + register), loudness));
+                    score.Add(new Note(8, (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[noteIndex2[section]]) + register), loudness));
                 }
             }
             return score;

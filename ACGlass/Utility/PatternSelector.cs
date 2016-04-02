@@ -12,7 +12,7 @@ namespace ACGlass.Utility
 {
     public class PatternSelector
     {
-        public static TwoLineScore ptTowLine = new TwoLineScore();
+        public static TwoLineScore ptTwoLine = new TwoLineScore();
         public static ThreeLineScore ptThreeLine = new ThreeLineScore();
         public static FourLineScore ptFourLine = new FourLineScore();
         public static SixPeakScore ptSixPeak = new SixPeakScore();
@@ -30,7 +30,7 @@ namespace ACGlass.Utility
         public static EtudeNo8Score ptEtudeNo8 = new EtudeNo8Score();
 
         public static ScoreUtility[] mainPatterns = new ScoreUtility[] { 
-            ptTowLine, 
+            ptTwoLine, 
             ptThreeLine, 
             ptFourLine, 
             ptSixPeak, 
@@ -45,14 +45,12 @@ namespace ACGlass.Utility
             ptEtudeNo6_2,
             ptEtudeNo8
         };
-        public static ScoreUtility[] pairPatterns = new ScoreUtility[] {
-            ptTowLine,
-            ptThreeLine,
-            ptFourLine,
-            ptSixPeak,
-            ptHeadTwo 
-        };
-        
+
+        static PatternSelector()
+        {
+            foreach (ScoreUtility p in mainPatterns)
+                p.getPairs();
+        }
 
         public static Pattern select(double V, double A)
         {
@@ -72,19 +70,13 @@ namespace ACGlass.Utility
                     cand.Add(i);
             int indexPT = BasicUtility.rander.Next(cand.Count);
             ScoreUtility ptMain = mainPatterns[indexPT];
-            Pattern pattern = ptMain.generatePattern(V, A, distance);
+            Pattern pattern = ptMain.generatePattern(V, A);
             return pattern;
         }
         public static Pattern selectByPU(double V, double A, ScoreUtility PU)
         {
-            double[] distance = new double[mainPatterns.Length];
-            for (int i = 0; i < mainPatterns.Length; i++)
-            {
-                ScoreUtility p = mainPatterns[i];
-                distance[i] = 2 - (Math.Abs(p.Valence - V) + Math.Abs(p.Arousal - A));
-            }
             ScoreUtility ptMain = PU;
-            Pattern pattern = ptMain.generatePattern(V, A, distance);
+            Pattern pattern = ptMain.generatePattern(V, A);
             return pattern;
         }
     }

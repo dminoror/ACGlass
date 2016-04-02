@@ -15,24 +15,17 @@ namespace ACGlass.Utility.Patterns.Score
             Valence = 0.5;
             Arousal = 0.575;
             Name = "FourLine";
-            pair = new int[] { 2 };
-            selfId = 2;
         }
-        public override Pattern generatePattern(double V, double A, double[] distance)
+        public override void getPairs()
         {
-            double picker = 0;
-            List<int> cand = new List<int>();
-            for (int i = 0; i < pair.Length; i++)
-                if (distance[pair[i]] > picker)
-                    picker = distance[pair[i]];
-            picker = BasicUtility.rander.NextDouble() * picker;
-            for (int i = 0; i < pair.Length; i++)
-                if (distance[pair[i]] >= picker)
-                    cand.Add(pair[i]);
-            int indexPT = BasicUtility.rander.Next(cand.Count);
-            ScoreUtility ptPair = PatternSelector.pairPatterns[cand[indexPT]];
+            pair = new ScoreUtility[] { PatternSelector.ptFourLine };
+        }
+        public override Pattern generatePattern(double V, double A)
+        {
+            ScoreUtility ptPair = this;
 
-            int tune = 0;
+            int tune = BasicUtility.rander.Next(12);
+            int mode = findMode(V, A);
             TSDChordPattern tsd = new TSDChordPattern(V, A);
             Chord[] chords1 = TSDChord.generate(tune, tsd);
             Chord[] chords2 = TSDChord.generate(tune, tsd);
@@ -41,12 +34,7 @@ namespace ACGlass.Utility.Patterns.Score
             registers[1] *= 12;
             byte loudness1 = 127;
             byte loudness2 = (byte)(loudness1 * 0.8);
-            bool? order1 = null, order2 = null;
-            if (cand[indexPT] == selfId)
-            {
-                order1 = BasicUtility.throwCoin;
-                order2 = order1 == false;
-            }
+            bool? order1 = BasicUtility.throwCoin, order2 = order1 == false;
             int BPM = ScoreUtility.BPMFromDurings(V, A, minimumDuring, ptPair.minimumDuring);
 
             Pattern pattern = new Pattern()
@@ -58,11 +46,12 @@ namespace ACGlass.Utility.Patterns.Score
                 loudness = new byte[] { loudness1, loudness2 },
                 orders = new bool?[] { order1, order2 },
                 tune = tune,
+                mode = mode,
                 BPM = BPM
             };
             return pattern;
         }
-        public override List<BaseNote> generateNotes(double V, double A, Chord[] chords, int register, byte loudness, bool? setOrder)
+        public override List<BaseNote> generateNotes(Pattern pattern, Chord[] chords, int register, byte loudness, bool? setOrder)
         {
             int order = 0;
             if (setOrder == null)
@@ -70,7 +59,7 @@ namespace ACGlass.Utility.Patterns.Score
             else
                 order = setOrder == true ? 1 : 0;
             int stable = 0;
-            FourChord[] fourChords = generateChords(chords[0].tune, chords, stable, findIsSeven(V, A));
+            FourChord[] fourChords = generateChords(chords[0].tune, chords, stable, findIsSeven(pattern.Valence, pattern.Arousal));
             List<BaseNote> notes = new List<BaseNote>();
             if (order == 0)
             {
@@ -80,7 +69,7 @@ namespace ACGlass.Utility.Patterns.Score
                     for (int loop = 0; loop < 4; loop++)
                     {
                         for (int n = 0; n < 4; n++)
-                            notes.Add(new Note(6, (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[n]) + register), loudness));
+                            notes.Add(new Note(6, (byte)(ACCore.pitchFromMode(pattern.mode, chord.tune, chord.notes[n]) + register), loudness));
                     }
                 }
             }
@@ -92,7 +81,7 @@ namespace ACGlass.Utility.Patterns.Score
                     for (int loop = 0; loop < 4; loop++)
                     {
                         for (int n = 3; n >= 0; n--)
-                            notes.Add(new Note(6, (byte)(ACCore.pitchFromMajor(chord.tune, chord.notes[n]) + register), loudness));
+                            notes.Add(new Note(6, (byte)(ACCore.pitchFromMode(pattern.mode, chord.tune, chord.notes[n]) + register), loudness));
                     }
                 }
             }

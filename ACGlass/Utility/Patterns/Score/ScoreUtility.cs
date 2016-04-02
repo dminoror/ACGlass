@@ -13,37 +13,10 @@ namespace ACGlass.Classes
         public double Valence;
         public double Arousal;
         public string Name;
-        protected int[] pair;
-        protected int selfId;
-        public virtual Pattern generatePattern(double V, double A, double[] distance) 
-        {
-            double picker = 0;
-            List<int> cand = new List<int>();
-            for (int i = 0; i < pair.Length; i++)
-            {
-                if (distance[pair[i]] > picker)
-                {
-                    picker = distance[pair[i]];
-                }
-            }
-            picker = BasicUtility.rander.NextDouble() * picker;
-            for (int i = 0; i < pair.Length; i++)
-                if (distance[pair[i]] >= picker)
-                    cand.Add(pair[i]);
-            int indexPT = BasicUtility.rander.Next(cand.Count);
-            ScoreUtility ptPair = PatternSelector.mainPatterns[cand[indexPT]];
-
-            int tune = 0;
-            TSDChordPattern tsd = new TSDChordPattern(V, A);
-            Chord[] chords1 = TSDChord.generate(tune, tsd);
-            Chord[] chords2 = TSDChord.generate(tune, tsd);
-            int[] registers = BasicUtility.Cfinder(new int[] { 4, 5, 6 }, 2);
-            registers[0] *= 12;
-            registers[1] *= 12;
-            byte loudness1 = 127;
-            byte loudness2 = (byte)(loudness1 * 0.8);
-            return null;
-        }
+        protected ScoreUtility[] pair;
+        //protected int selfId;
+        public virtual void getPairs() { }
+        public virtual Pattern generatePattern(double V, double A) { return null; }
         public virtual List<BaseNote>[] generateScore(Pattern[] patterns, int index)
         {
             Pattern pattern = patterns[index];
@@ -51,8 +24,8 @@ namespace ACGlass.Classes
             Chord[] chords1 = TSDChord.generate(patterns[index].tune, tsd);
             Chord[] chords2 = TSDChord.generate(patterns[index].tune, tsd);
             List<BaseNote>[] score = new List<BaseNote>[] { 
-                pattern.patterns[0].generateNotes(pattern.Valence, pattern.Arousal, chords1, pattern.registers[0], pattern.loudness[0], pattern.orders[0]), 
-                pattern.patterns[1].generateNotes(pattern.Valence, pattern.Arousal, chords2, pattern.registers[1], pattern.loudness[1], pattern.orders[1]) };
+                pattern.patterns[0].generateNotes(pattern, chords1, pattern.registers[0], pattern.loudness[0], pattern.orders[0]), 
+                pattern.patterns[1].generateNotes(pattern, chords2, pattern.registers[1], pattern.loudness[1], pattern.orders[1]) };
             List<BaseNote> hand1 = score[0];
             if (index != patterns.Length - 1 && pattern.BPM != patterns[index + 1].BPM)
             {
@@ -64,7 +37,7 @@ namespace ACGlass.Classes
             hand1.Insert(0, new TempoChanger(pattern.BPM));
             return score;
         }
-        public virtual List<BaseNote> generateNotes(double V, double A, Chord[] chords, int register, byte loudness, bool? setOrder) 
+        public virtual List<BaseNote> generateNotes(Pattern pattern, Chord[] chords, int register, byte loudness, bool? setOrder) 
         {
             return null;
         }
@@ -98,6 +71,15 @@ namespace ACGlass.Classes
             int speed = (int)((15 * (A + (BasicUtility.rander.NextDouble() / 10 - 0.05))) + 5);
             int BPM = speed * during;
             return BPM;
+        }
+        public int findMode(double V, double A)
+        {
+            int selectV = BasicUtility.powerSelect(new double[][] { new double[] { 1, 0.5 }, new double[] { 0, 0.5 } }, new double[] { V, 0.5 });
+            int selectA = BasicUtility.powerSelect(new double[][] { new double[] { 0.5, 1 }, new double[] { 0.5, 0 } }, new double[] { 0.5, A });
+            if (selectV == 1 && selectA == 1)
+                return 1;
+            else
+                return 0;
         }
     }
     
