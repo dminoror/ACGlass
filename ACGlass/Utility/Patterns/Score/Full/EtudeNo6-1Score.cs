@@ -61,6 +61,18 @@ namespace ACGlass.Utility.Patterns.Score.Full
                 hand2.Insert(hand2.Count - 2, new TempoChanger((int)(pattern.BPM - distance * 4)));
             }
             hand2.Insert(0, new TempoChanger(pattern.BPM));
+            if (patterns.Length - 1 == index)
+            {
+                for (int i = 0; i < 16; i++)
+                    score[0].Add(new Note(6, (byte)(ACCore.pitchFromMode(0, chord.tune, chord.notes[0]) + pattern.registers[0]), pattern.loudness[0]));
+                for (int i = 0; i < 8; i++)
+                {
+                    score[1].Add(new Note(6, new byte[] { 
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[0]) + pattern.registers[1]), 
+                    (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[1]) + pattern.registers[1]) }, pattern.loudness[1]));
+                    score[1].Add(new Note(6, (byte)(ACCore.pitchFromMode(mode, chord.tune, chord.notes[2]) + pattern.registers[1]), pattern.loudness[1]));
+                }
+            }
             return score;
         }
         void mainMode1(Pattern pattern, Chord chord, int mode, List<BaseNote> notes, bool step)

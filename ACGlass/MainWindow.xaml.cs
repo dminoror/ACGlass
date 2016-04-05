@@ -55,6 +55,15 @@ namespace ACGlass
 
         private void btnClearPath_Click(object sender, RoutedEventArgs e)
         {
+            for (int i = 0; i < stackPaths.Children.Count; i++)
+            {
+                Grid parent = (Grid)stackPaths.Children[i];
+                TextBox boxV = (TextBox)parent.Children[0];
+                TextBox boxA = (TextBox)parent.Children[1];
+                CheckBox check = (CheckBox)parent.Children[2];
+                boxV.TextChanged -= box_TextChanged;
+                boxA.TextChanged -= box_TextChanged;
+            }
             stackPaths.Children.Clear();
         }
 
@@ -141,27 +150,98 @@ namespace ACGlass
 
         private void mapMouse_Click(object sender, MouseButtonEventArgs e)
         {
-            createEmotionPath(txtX.Text, txtY.Text);
+            createEmotionPath(e.GetPosition((Grid)sender));
         }
 
-        void createEmotionPath(string V, string A)
+        const double Round_Diameter = 16;
+        const double Round_Radius = Round_Diameter / 2;
+        const double Line_Thinkness = Round_Diameter / 4;
+
+        void createEmotionPath(Point point)
         {
             Grid grid = new Grid();
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(3, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(3, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            TextBox boxV = new TextBox() { Text = V, TextAlignment = TextAlignment.Center };
-            TextBox boxA = new TextBox() { Text = A, TextAlignment = TextAlignment.Center };
+            TextBox boxV = new TextBox() { Text = txtX.Text, TextAlignment = TextAlignment.Center };
+            TextBox boxA = new TextBox() { Text = txtY.Text, TextAlignment = TextAlignment.Center };
+            boxV.TextChanged += box_TextChanged;
+            boxA.TextChanged += box_TextChanged;
             Grid.SetColumn(boxA, 1);
             Viewbox view = new Viewbox();
             Grid.SetColumn(view, 2);
             CheckBox check = new CheckBox();
+            check.Checked += check_Checked;
+            check.Unchecked += check_Checked;
             view.Child = check;
             grid.Children.Add(boxV);
             grid.Children.Add(boxA);
             grid.Children.Add(view);
-            grid.Tag = new UIElement[] { boxV, boxA, check };
             stackPaths.Children.Add(grid);
+
+            Ellipse ellipse = new Ellipse()
+            {
+                Width = Round_Diameter,
+                Height = Round_Diameter,
+                Fill = Brushes.Black,
+                Margin = new Thickness(point.X - Round_Radius, point.Y - Round_Radius, 0, 0)
+            };
+            grid.Tag = new UIElement[] { boxV, boxA, check, ellipse };
+            if (stackPaths.Children.Count > 1)
+            {
+                Grid prevGrid = (Grid)stackPaths.Children[stackPaths.Children.Count - 2];
+                Ellipse prevEll = (Ellipse)((UIElement[])prevGrid.Tag)[3];
+                Line line = new Line() 
+                {
+                    X1 = prevEll.Margin.Left + Round_Radius,
+                    Y1 = prevEll.Margin.Top + Round_Radius,
+                    X2 = ellipse.Margin.Left + Round_Radius,
+                    Y2 = ellipse.Margin.Top + Round_Radius,
+                    Stroke = ellipse.Fill,
+                    StrokeThickness = Line_Thinkness,
+                    Tag = prevEll
+                };
+                ellipse.Tag = line;
+                canvasPaths.Children.Add(line);
+            }
+            canvasPaths.Children.Add(ellipse);
+        }
+
+        void check_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox check = (CheckBox)sender;
+            bool isChecked = check.IsChecked == true;
+            Grid parent = (Grid)((Viewbox)check.Parent).Parent;
+            Ellipse ellipse = (Ellipse)((UIElement[])parent.Tag)[3];
+            ellipse.Fill = isChecked ? Brushes.DarkGray : Brushes.Black;
+        }
+
+        void box_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Grid parent = (Grid)((TextBox)sender).Parent;
+            double V, A;
+            double.TryParse(((TextBox)parent.Children[0]).Text, out V);
+            double.TryParse(((TextBox)parent.Children[1]).Text, out A);
+
+            Ellipse ellipse = (Ellipse)parent.Tag;
+            ellipse.Margin = new Thickness((V / 100 * canvasPaths.ActualWidth) - Round_Radius, ((1 - A / 100) * canvasPaths.ActualHeight) - Round_Radius, 0, 0);
+            if (ellipse.Tag != null)
+            {
+                Line line = (Line)ellipse.Tag;
+                line.X2 = ellipse.Margin.Left + Round_Radius;
+                line.Y2 = ellipse.Margin.Top + Round_Radius;
+            }
+            int index = 0;
+            for (; index < stackPaths.Children.Count - 1; index++)
+                if (stackPaths.Children[index].Equals(parent))
+                    break;
+            index += 1;
+            if (index != stackPaths.Children.Count)
+            {
+                Line linker = (Line)((Ellipse)((UIElement[])((Grid)stackPaths.Children[index]).Tag)[3]).Tag;
+                linker.X1 = ellipse.Margin.Left + Round_Radius;
+                linker.Y1 = ellipse.Margin.Top + Round_Radius;
+            }
         }
 
     }

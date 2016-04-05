@@ -21,6 +21,7 @@
             <Border BorderBrush="Black" BorderThickness="2,1,1,2" Grid.Row="1" Grid.Column="0" Background="#800000FF"/>
             <Border BorderBrush="Black" BorderThickness="1,1,2,2" Grid.Row="1" Grid.Column="1" Background="#8000FF00"/>
         </Grid>
+        <Canvas x:Name="canvasPaths"/>
         <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="2,0,0,0">
             <Grid>
                 <Grid.RowDefinitions>

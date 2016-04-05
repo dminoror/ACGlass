@@ -117,6 +117,14 @@ namespace ACGlass.Utility.Patterns.Score.Full
                     hand1.Insert(hand1.Count - beatLen * i, new TempoChanger((int)(pattern.BPM - distance * (5 - i))));
             }
             hand1.Insert(0, new TempoChanger(pattern.BPM));
+            if (patterns.Length - 1 == index)
+            {
+                score[0].Add(new Note(96, new byte[] { 
+                    (byte)(ACCore.pitchFromMode(0, pattern.tune, chords[0].notes[0]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMode(0, pattern.tune, chords[0].notes[1]) + pattern.registers[0]),
+                    (byte)(ACCore.pitchFromMode(0, pattern.tune, chords[0].notes[2]) + pattern.registers[0]) }, pattern.loudness[0]));
+                score[1].Add(new Note(96, (byte)(ACCore.pitchFromMode(0, pattern.tune, chords[0].notes[0]) + pattern.registers[0] - 12), pattern.loudness[1]));
+            }
             return score;
         }
         public override int minimumDuring

@@ -35,6 +35,11 @@ namespace ACGlass.Classes
                     hand1.Insert(hand1.Count - beatLen * i, new TempoChanger((int)(pattern.BPM - distance * (5 - i))));
             }
             hand1.Insert(0, new TempoChanger(pattern.BPM));
+            if (patterns.Length - 1 == index)
+            {
+                score[0].Add(new Note(96, (byte)(ACCore.pitchFromMode(pattern.mode, pattern.tune, chords1[0].notes[0]) + pattern.registers[0]), pattern.loudness[0]));
+                score[1].Add(new Note(96, (byte)(ACCore.pitchFromMode(pattern.mode, pattern.tune, chords2[0].notes[0]) + pattern.registers[1]), pattern.loudness[1]));
+            }
             return score;
         }
         public virtual List<BaseNote> generateNotes(Pattern pattern, Chord[] chords, int register, byte loudness, bool? setOrder) 
